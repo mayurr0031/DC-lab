@@ -1,0 +1,24 @@
+clc;
+clear all;
+close all;
+%Distinct data symbols appearing in sig
+symbol=[1:5];
+%Probability of each data
+p=[0.45 0.15 0.2 0.11 0.09];
+[dict, avglen]=huffmandict(symbol,p);
+%Codeword for fifth signal value
+samplecode=dict{5,2};
+dict{1,:}
+dict{2,:}
+dict{3,:}
+dict{4,:}
+dict{5,:}
+%Encode the data
+hcode=huffmanenco(symbol,dict);
+%Decode the code
+dhsig=huffmandeco(hcode, dict);
+disp('encoded msg:');
+disp(hcode);
+disp('decoded msg:');
+disp(dhsig);
+code_length=length(hcode)

@@ -1,0 +1,26 @@
+clc
+close all
+clear all
+m=16
+k=log2(m);
+n=9e3;
+nsamp=1;
+x=randint(n, 1);
+stem(x(1:20),'filled');
+title('bit sequence by Name USN');
+xlabel('bit index');
+ylabel('bit amplitude');
+xsym=bi2de(reshape(x,k,length(x)/k).','left-msb');
+figure;
+stem(xsym(1:10));
+title('symbol plot by Name USN');
+xlabel('symbol index');
+ylabel('symbol amplitude');
+y-modulate(modem.qammod(m),xsym);
+ytx=y;
+ebno=10
+snr=ebno+10*log(k)-10*log10(nsamp);
+yn=awgn(ytx,snr);
+yrx=yn;
+scatterplot(y);
+scatterplot(yrx,30);

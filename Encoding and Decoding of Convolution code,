@@ -1,0 +1,30 @@
+clc
+clear all
+close all
+% Complete Example of Convolutional Code Encoding and Decoding
+% Input message to be encoded
+msg = [1 011010 0];
+% Define constraint length and generator polynomial
+constraint_length = 3;
+generator_polynomials = [7 5];
+% Create trellis
+trellis = poly2trellis(constraint_length, generator_polynomials);
+% Encode the message
+encoded_msg = convenc(msg, trellis);
+% Introduce some noise (optional)
+% Example: Flip a bit in the encoded message to simulate noise
+encoded_msg_noisy = encoded_msg;
+encoded_msg_noisy(4) = ~encoded_msg_noisy(4); % Flip the 4th bit
+% Decode the noisy message using Viterbi decoder
+traceback_length = 5;
+decoded_msg = vitdec(encoded_msg_noisy, trellis, traceback_length, 'trunc',
+'hard');
+% Display results
+disp('Original Message:');
+disp(msg);
+disp('Encoded Message:');
+disp(encoded_msg);
+disp('Noisy Encoded Message:');
+disp(encoded_msg_noisy);
+disp('Decoded Message:');
+disp(decoded_msg);
